@@ -4,7 +4,7 @@
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   CONFIG — edit your contact details here; they update the whole page.
+   CONFIG: edit your contact details here. They update every link on the page.
    -------------------------------------------------------------------------- */
 const CONFIG = {
   email: "hello@prakashbansal.com",             // your email address
@@ -13,7 +13,7 @@ const CONFIG = {
   instagram: "your-username",                    // Instagram username (without @)
   linkedin: "https://www.linkedin.com/in/your-profile",
   // Optional: a form backend (e.g. "https://formspree.io/f/xxxxxxx").
-  // Leave empty to open the visitor's email app with the message pre-filled.
+  // When set, "Send via Email" posts the form there instead of opening the visitor's email app.
   formEndpoint: "",
 };
 
@@ -27,12 +27,26 @@ const CONFIG = {
 
   document.documentElement.classList.remove("no-js");
 
+  /* ---------- Helpers ---------- */
+  const digitsOnly = (v) => String(v).replace(/\D/g, "");
+  const whatsappUrl = (text) => `https://wa.me/${digitsOnly(CONFIG.whatsapp)}?text=${encodeURIComponent(text)}`;
+  const mailtoUrl = (subject = "", body = "") => {
+    const params = [];
+    if (subject) params.push(`subject=${encodeURIComponent(subject)}`);
+    if (body) params.push(`body=${encodeURIComponent(body)}`);
+    return `mailto:${CONFIG.email}${params.length ? `?${params.join("&")}` : ""}`;
+  };
+  // "+91 98765 43210" style for Indian numbers, "+<digits>" otherwise
+  const formatPhone = (raw) => {
+    const d = digitsOnly(raw);
+    return d.length === 12 && d.startsWith("91") ? `+91 ${d.slice(2, 7)} ${d.slice(7)}` : `+${d}`;
+  };
+
   /* ---------- Apply contact config ---------- */
   function applyConfig() {
-    const waUrl = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(CONFIG.whatsappMessage)}`;
     const links = {
-      email: `mailto:${CONFIG.email}`,
-      whatsapp: waUrl,
+      email: mailtoUrl(),
+      whatsapp: whatsappUrl(CONFIG.whatsappMessage),
       instagram: `https://instagram.com/${CONFIG.instagram}`,
       linkedin: CONFIG.linkedin,
     };
@@ -41,24 +55,33 @@ const CONFIG = {
       if (url) el.href = url;
     });
     $$('[data-text="email"]').forEach((el) => (el.textContent = CONFIG.email));
+    $$('[data-text="whatsapp"]').forEach((el) => (el.textContent = formatPhone(CONFIG.whatsapp)));
     $$('[data-text="instagram"]').forEach((el) => (el.textContent = `@${CONFIG.instagram}`));
     const year = $("#year");
     if (year) year.textContent = new Date().getFullYear();
+
+    // Friendly reminder for the site owner while placeholder details are still in place
+    if (/^910+$/.test(digitsOnly(CONFIG.whatsapp)) || CONFIG.email.endsWith("prakashbansal.com")) {
+      console.info("Portfolio: update CONFIG in js/main.js with your real email and WhatsApp number.");
+    }
   }
 
   /* ---------- Preloader ---------- */
   function initPreloader() {
     const pre = $("#preloader");
+    let done = false;
     document.body.classList.add("is-loading");
     const hide = () => {
+      if (done) return;
+      done = true;
       pre?.classList.add("done");
       document.body.classList.remove("is-loading");
       // Kick off hero reveals right after the loader fades
       setTimeout(() => $$(".hero .reveal").forEach((el) => el.classList.add("in-view")), 150);
     };
-    if (document.readyState === "complete") setTimeout(hide, 400);
-    else window.addEventListener("load", () => setTimeout(hide, 400));
-    setTimeout(hide, 3000); // safety net if some asset is slow
+    if (document.readyState === "complete") setTimeout(hide, 300);
+    else window.addEventListener("load", () => setTimeout(hide, 300));
+    setTimeout(hide, 2500); // safety net if a font or asset is slow
   }
 
   /* ---------- Header: scrolled state, hide on scroll down, progress bar ---------- */
@@ -66,6 +89,7 @@ const CONFIG = {
     const header = $("#header");
     const progress = $("#scrollProgress");
     const toTop = $("#toTop");
+    const navLinks = $("#navLinks");
     let lastY = window.scrollY;
     let ticking = false;
 
@@ -74,8 +98,8 @@ const CONFIG = {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       header.classList.toggle("scrolled", y > 30);
       // Hide header when scrolling down past the hero, show when scrolling up
-      const menuOpen = $("#navLinks").classList.contains("open");
-      header.classList.toggle("hidden", !menuOpen && y > lastY && y > 600);
+      const keepVisible = navLinks.classList.contains("open") || header.contains(document.activeElement);
+      header.classList.toggle("hidden", !keepVisible && y > lastY && y > 600);
       progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
       toTop.classList.toggle("show", y > 700);
       lastY = y;
@@ -85,6 +109,8 @@ const CONFIG = {
     window.addEventListener("scroll", () => {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
+    // Keyboard users tabbing into the header should always see it
+    header.addEventListener("focusin", () => header.classList.remove("hidden"));
     update();
   }
 
@@ -92,16 +118,29 @@ const CONFIG = {
   function initMobileNav() {
     const toggle = $("#navToggle");
     const links = $("#navLinks");
-    const setOpen = (open) => {
+    const isOpen = () => links.classList.contains("open");
+    const setOpen = (open, returnFocus = false) => {
       links.classList.toggle("open", open);
       toggle.setAttribute("aria-expanded", String(open));
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       document.body.style.overflow = open ? "hidden" : "";
+      if (open) setTimeout(() => $(".nav__link", links).focus(), 60);
+      else if (returnFocus) toggle.focus();
     };
-    toggle.addEventListener("click", () => setOpen(!links.classList.contains("open")));
+    toggle.addEventListener("click", () => setOpen(!isOpen()));
     $$(".nav__link", links).forEach((a) => a.addEventListener("click", () => setOpen(false)));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
-    window.addEventListener("resize", () => { if (window.innerWidth > 960) setOpen(false); });
+    document.addEventListener("keydown", (e) => {
+      if (!isOpen()) return;
+      if (e.key === "Escape") setOpen(false, true);
+      // Keep Tab focus inside the open menu (links + close button)
+      if (e.key === "Tab") {
+        const items = [toggle, ...$$(".nav__link", links)];
+        const i = items.indexOf(document.activeElement);
+        if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+        else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+      }
+    });
+    window.addEventListener("resize", () => { if (window.innerWidth > 960 && isOpen()) setOpen(false); });
   }
 
   /* ---------- Active nav link on scroll ---------- */
@@ -110,9 +149,13 @@ const CONFIG = {
     const sections = navLinks.map((a) => $(a.getAttribute("href"))).filter(Boolean);
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === `#${entry.target.id}`));
-        }
+        if (!entry.isIntersecting) return;
+        navLinks.forEach((a) => {
+          const active = a.getAttribute("href") === `#${entry.target.id}`;
+          a.classList.toggle("active", active);
+          if (active) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
       });
     }, { rootMargin: "-45% 0px -50% 0px" });
     sections.forEach((s) => observer.observe(s));
@@ -120,10 +163,11 @@ const CONFIG = {
 
   /* ---------- Reveal on scroll (+ stagger within groups) ---------- */
   function initReveal() {
-    // Stagger cards that sit side by side in grids
-    [".services__grid", ".skills__grid", ".work-grid", ".contact__list", ".hero__content"].forEach((sel) => {
+    // Stagger items that sit side by side
+    [".services__grid", ".toolkit", ".project-grid", ".contact__list", ".specialties",
+     ".expertise__grid", ".process__steps", ".exp-summary", ".hero__content"].forEach((sel) => {
       $$(sel).forEach((group) => {
-        $$(":scope > .reveal, :scope > li.reveal", group).forEach((el, i) => el.style.setProperty("--d", `${(i % 6) * 0.08}s`));
+        $$(":scope > .reveal", group).forEach((el, i) => el.style.setProperty("--d", `${(i % 3) * 0.08}s`));
       });
     });
 
@@ -140,7 +184,7 @@ const CONFIG = {
     $$(".reveal").filter((el) => !el.closest(".hero")).forEach((el) => observer.observe(el));
   }
 
-  /* ---------- Typed role text ---------- */
+  /* ---------- Typed role text (decorative; screen readers get a static sentence) ---------- */
   function initTyped() {
     const el = $("#typed");
     if (!el) return;
@@ -148,8 +192,7 @@ const CONFIG = {
     if (prefersReducedMotion) { el.textContent = words[0]; return; }
     let w = 0, c = words[0].length, deleting = true;
     const tick = () => {
-      const word = words[w];
-      el.textContent = word.slice(0, c);
+      el.textContent = words[w].slice(0, c);
       let delay = deleting ? 45 : 90;
       if (deleting) {
         c--;
@@ -165,7 +208,6 @@ const CONFIG = {
 
   /* ---------- Counters ---------- */
   function initCounters() {
-    const counters = $$(".counter");
     const run = (el) => {
       const target = +el.dataset.target;
       if (prefersReducedMotion) { el.textContent = target; return; }
@@ -181,51 +223,63 @@ const CONFIG = {
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach((e) => { if (e.isIntersecting) { setTimeout(() => run(e.target), 700); obs.unobserve(e.target); } });
     }, { threshold: 0.6 });
-    counters.forEach((c) => observer.observe(c));
+    $$(".counter").forEach((c) => observer.observe(c));
   }
 
   /* ---------- Skill bars ----------
-     Bars fill fully by default (no invented percentages).
-     Add data-level="NN" on a .skill-card to show your own value. */
+     Bars fill completely when the group scrolls into view (no invented percentages).
+     Add data-level="NN" to a .tool to show your own value. */
   function initSkills() {
-    const cards = $$(".skill-card");
-    cards.forEach((card) => {
-      const level = parseInt(card.dataset.level, 10);
-      if (!Number.isNaN(level)) {
-        card.style.setProperty("--level", `${Math.max(0, Math.min(level, 100))}%`);
-        const label = document.createElement("span");
-        label.className = "skill-card__level";
-        label.textContent = `${level}%`;
-        $(".skill-card__body", card).appendChild(label);
-      }
+    $$(".tool").forEach((tool) => {
+      const level = parseInt(tool.dataset.level, 10);
+      if (Number.isNaN(level)) return;
+      const clamped = Math.max(0, Math.min(level, 100));
+      tool.style.setProperty("--level", `${clamped}%`);
+      const label = document.createElement("span");
+      label.className = "tool__level";
+      label.textContent = `${clamped}%`;
+      $(".tool__info h4", tool).appendChild(label);
     });
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in-view"); obs.unobserve(e.target); } });
-    }, { threshold: 0.4 });
-    cards.forEach((c) => observer.observe(c));
   }
 
   /* ---------- Portfolio filter ---------- */
   function initFilter() {
     const buttons = $$(".filter");
-    const items = $$(".work");
+    const items = $$(".project");
+    const status = $("#filterStatus");
+
+    // Show how many projects each category has
+    buttons.forEach((btn) => {
+      const f = btn.dataset.filter;
+      const n = f === "all" ? items.length : items.filter((i) => i.dataset.category === f).length;
+      const count = $(".filter__count", btn);
+      if (count) { count.textContent = n; count.setAttribute("aria-hidden", "true"); }
+      btn.setAttribute("aria-label", `${btn.firstChild.textContent.trim()} (${n} projects)`);
+    });
+
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const f = btn.dataset.filter;
-        buttons.forEach((b) => { b.classList.toggle("active", b === btn); b.setAttribute("aria-selected", String(b === btn)); });
+        buttons.forEach((b) => { b.classList.toggle("active", b === btn); b.setAttribute("aria-pressed", String(b === btn)); });
 
-        // Fade out, swap visibility, fade in
-        items.forEach((item) => item.classList.add("is-filtering"));
-        setTimeout(() => {
+        const apply = () => {
+          let shown = 0;
           items.forEach((item) => {
             const show = f === "all" || item.dataset.category === f;
             item.classList.toggle("is-hidden", !show);
-            item.classList.add("in-view"); // make sure revealed
+            item.classList.add("in-view"); // make sure newly shown cards are revealed
+            if (show) shown++;
           });
-          requestAnimationFrame(() => requestAnimationFrame(() => {
-            items.forEach((item) => item.classList.remove("is-filtering"));
-          }));
-        }, 300);
+          status.textContent = `Showing ${shown} ${shown === 1 ? "project" : "projects"}.`;
+        };
+
+        if (prefersReducedMotion) { apply(); return; }
+        // Fade out, swap visibility, fade back in
+        items.forEach((item) => item.classList.add("is-filtering"));
+        setTimeout(() => {
+          apply();
+          requestAnimationFrame(() => requestAnimationFrame(() => items.forEach((item) => item.classList.remove("is-filtering"))));
+        }, 250);
       });
     });
   }
@@ -234,73 +288,108 @@ const CONFIG = {
   function initLightbox() {
     const box = $("#lightbox");
     const media = $("#lightboxMedia");
-    const title = $("#lightboxTitle");
-    const cat = $("#lightboxCat");
+    const els = {
+      title: $("#lightboxTitle"), cat: $("#lightboxCat"), desc: $("#lightboxDesc"),
+      tools: $("#lightboxTools"), counter: $("#lightboxCounter"),
+    };
+    const closeBtn = $("#lightboxClose");
+    let list = [];
     let current = 0;
     let lastFocus = null;
 
-    const visibleItems = () => $$(".work").filter((w) => !w.classList.contains("is-hidden"));
+    const visibleItems = () => $$(".project").filter((p) => !p.classList.contains("is-hidden"));
 
-    const render = (item) => {
+    const render = () => {
+      const item = list[current];
       media.innerHTML = "";
+      media.classList.toggle("lightbox__media--video", !!item.dataset.video);
       if (item.dataset.video) {
         const iframe = document.createElement("iframe");
         iframe.src = item.dataset.video;
-        iframe.title = $("h3", item).textContent;
+        iframe.title = $(".project__title", item).textContent;
         iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
         iframe.allowFullscreen = true;
         media.appendChild(iframe);
       } else {
-        const visual = $(".work__media", item).firstElementChild.cloneNode(true);
-        media.appendChild(visual);
+        const img = $("img", item).cloneNode();
+        img.loading = "eager";
+        media.appendChild(img);
       }
-      title.textContent = $("h3", item).textContent;
-      cat.textContent = $(".work__cat", item).textContent;
+      els.title.textContent = $(".project__title", item).textContent;
+      els.cat.textContent = $(".project__cat", item).textContent;
+      els.desc.textContent = $(".project__desc", item).textContent;
+      els.tools.innerHTML = $(".project__tools", item).innerHTML;
+      els.counter.textContent = `${current + 1} / ${list.length}`;
     };
 
     const open = (item) => {
-      const list = visibleItems();
-      current = list.indexOf(item);
+      list = visibleItems();
+      current = Math.max(0, list.indexOf(item));
       lastFocus = document.activeElement;
-      render(item);
+      render();
       box.hidden = false;
       document.body.style.overflow = "hidden";
       requestAnimationFrame(() => box.classList.add("open"));
-      $("#lightboxClose").focus();
+      closeBtn.focus();
     };
     const close = () => {
       box.classList.remove("open");
       document.body.style.overflow = "";
-      setTimeout(() => { box.hidden = true; media.innerHTML = ""; }, 400);
+      setTimeout(() => { box.hidden = true; media.innerHTML = ""; }, 350);
       lastFocus?.focus();
     };
     const go = (dir) => {
-      const list = visibleItems();
       current = (current + dir + list.length) % list.length;
-      render(list[current]);
+      render();
     };
 
-    $$(".work").forEach((item) => {
-      item.addEventListener("click", () => open(item));
-      item.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(item); } });
-    });
-    $("#lightboxClose").addEventListener("click", close);
+    $$(".project__media").forEach((btn) => btn.addEventListener("click", () => open(btn.closest(".project"))));
+    closeBtn.addEventListener("click", close);
     $("#lightboxPrev").addEventListener("click", () => go(-1));
     $("#lightboxNext").addEventListener("click", () => go(1));
     box.addEventListener("click", (e) => { if (e.target === box) close(); });
     document.addEventListener("keydown", (e) => {
       if (box.hidden) return;
       if (e.key === "Escape") close();
-      if (e.key === "ArrowRight") go(1);
-      if (e.key === "ArrowLeft") go(-1);
+      else if (e.key === "ArrowRight") go(1);
+      else if (e.key === "ArrowLeft") go(-1);
+      else if (e.key === "Tab") {
+        // Focus trap: keep keyboard focus inside the dialog
+        const focusables = $$("button, iframe, a[href]", box).filter((el) => el.offsetParent !== null);
+        const first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
   }
 
-  /* ---------- Contact form ---------- */
+  /* ---------- Copy email to clipboard ---------- */
+  function initCopyEmail() {
+    const btn = $("#copyEmail");
+    if (!btn) return;
+    const label = $(".copy-btn__label", btn);
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(CONFIG.email);
+      } catch {
+        // Fallback for older browsers / non-secure contexts
+        const t = document.createElement("textarea");
+        t.value = CONFIG.email; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+        document.body.appendChild(t); t.select(); document.execCommand("copy"); t.remove();
+      }
+      btn.classList.add("copied");
+      label.textContent = "Copied!";
+      btn.setAttribute("aria-label", "Email address copied");
+      setTimeout(() => { btn.classList.remove("copied"); label.textContent = "Copy"; btn.setAttribute("aria-label", "Copy email address"); }, 2000);
+    });
+  }
+
+  /* ---------- Contact form ----------
+     Two submit buttons: WhatsApp (opens a pre-filled chat) and Email
+     (opens the visitor's email app, or posts to CONFIG.formEndpoint if set). */
   function initForm() {
     const form = $("#contactForm");
     const status = $("#formStatus");
-    const label = $(".btn__label", form);
 
     const validators = {
       name: (v) => v.trim().length >= 2 || "Please enter your name.",
@@ -308,38 +397,51 @@ const CONFIG = {
       service: (v) => !!v || "Please choose a service.",
       message: (v) => v.trim().length >= 10 || "Please write at least 10 characters.",
     };
+    const fields = $$("input, select, textarea", form);
 
     const validateField = (el) => {
       const result = validators[el.name]?.(el.value);
       const field = el.closest(".field");
-      const err = $(".field__error", field);
       const ok = result === true;
       field.classList.toggle("invalid", !ok);
-      err.textContent = ok ? "" : result;
+      el.setAttribute("aria-invalid", String(!ok));
+      $(".field__error", field).textContent = ok ? "" : result;
       return ok;
     };
 
-    $$("input, select, textarea", form).forEach((el) => {
-      el.addEventListener("blur", () => validateField(el));
+    fields.forEach((el) => {
+      el.addEventListener("blur", () => { if (el.value) validateField(el); });
       el.addEventListener("input", () => { if (el.closest(".field").classList.contains("invalid")) validateField(el); });
+      el.addEventListener("change", () => { if (el.tagName === "SELECT") validateField(el); });
     });
+
+    const setStatus = (type, text) => { status.className = `form-status ${type}`; status.textContent = text; };
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const fields = $$("input, select, textarea", form);
+      const via = e.submitter?.value || "email";
       const allValid = fields.map(validateField).every(Boolean);
       if (!allValid) {
-        status.className = "form-status error";
-        status.textContent = "Please fix the highlighted fields.";
-        fields.find((f) => f.closest(".field").classList.contains("invalid"))?.focus();
+        setStatus("error", "Please fix the highlighted fields.");
+        fields.find((f) => f.getAttribute("aria-invalid") === "true")?.focus();
         return;
       }
 
       const data = Object.fromEntries(new FormData(form));
+      const summary = `Hi Prakash,\n\n${data.message.trim()}\n\nService: ${data.service}\nName: ${data.name.trim()}\nEmail: ${data.email.trim()}`;
 
-      // Option A: send to a form backend (Formspree, Getform, etc.)
+      if (via === "whatsapp") {
+        window.open(whatsappUrl(summary), "_blank", "noopener");
+        setStatus("success", "Opening WhatsApp with your message. Just press send!");
+        form.reset();
+        return;
+      }
+
       if (CONFIG.formEndpoint) {
-        label.textContent = "Sending…";
+        const btn = e.submitter;
+        const label = btn && $(".btn__label", btn);
+        if (label) label.textContent = "Sending…";
+        if (btn) btn.disabled = true;
         try {
           const res = await fetch(CONFIG.formEndpoint, {
             method: "POST",
@@ -347,24 +449,19 @@ const CONFIG = {
             body: JSON.stringify(data),
           });
           if (!res.ok) throw new Error("Request failed");
-          status.className = "form-status success";
-          status.textContent = "Thank you! Your message has been sent. I'll get back to you soon.";
+          setStatus("success", "Thank you! Your message has been sent. I'll get back to you soon.");
           form.reset();
         } catch {
-          status.className = "form-status error";
-          status.textContent = `Something went wrong. Please email me directly at ${CONFIG.email}.`;
+          setStatus("error", `Something went wrong. Please email me directly at ${CONFIG.email}.`);
         } finally {
-          label.textContent = "Send Message";
+          if (label) label.textContent = "Send via Email";
+          if (btn) btn.disabled = false;
         }
         return;
       }
 
-      // Option B (default): open the visitor's email app with the message pre-filled
-      const subject = `New project enquiry: ${data.service}`;
-      const body = `Hi Prakash,\n\n${data.message}\n\n— ${data.name} (${data.email})`;
-      window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      status.className = "form-status success";
-      status.textContent = "Opening your email app… Thank you for reaching out!";
+      window.location.href = mailtoUrl(`New project enquiry: ${data.service}`, summary);
+      setStatus("success", "Opening your email app with the message ready to send. Thank you!");
       form.reset();
     });
   }
@@ -375,7 +472,7 @@ const CONFIG = {
     if (!canvas || prefersReducedMotion) return;
     const ctx = canvas.getContext("2d");
     const hero = $(".hero");
-    let w, h, particles = [], raf, visible = true;
+    let w, h, particles = [], raf = 0, inView = true;
     const mouse = { x: -9999, y: -9999 };
     const colors = ["255,107,26", "45,140,255", "0,229,255"];
 
@@ -384,7 +481,7 @@ const CONFIG = {
       w = hero.offsetWidth; h = hero.offsetHeight;
       canvas.width = w * dpr; canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(Math.floor((w * h) / 16000), 90);
+      const count = Math.min(Math.floor((w * h) / (w < 640 ? 22000 : 16000)), 90);
       particles = Array.from({ length: count }, () => ({
         x: Math.random() * w, y: Math.random() * h,
         vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
@@ -404,7 +501,7 @@ const CONFIG = {
         // Gentle repel from the mouse
         const dxm = p.x - mouse.x, dym = p.y - mouse.y;
         const dm = Math.hypot(dxm, dym);
-        if (dm < 120) { p.x += dxm / dm; p.y += dym / dm; }
+        if (dm < 120 && dm > 0) { p.x += dxm / dm; p.y += dym / dm; }
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -427,12 +524,13 @@ const CONFIG = {
       raf = requestAnimationFrame(draw);
     };
 
-    // Pause the animation when the hero is off-screen (saves battery)
-    new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
+    // Only animate while the hero is on screen and the tab is visible (saves battery)
+    const sync = () => {
       cancelAnimationFrame(raf);
-      if (visible) raf = requestAnimationFrame(draw);
-    }).observe(hero);
+      if (inView && !document.hidden) raf = requestAnimationFrame(draw);
+    };
+    new IntersectionObserver(([entry]) => { inView = entry.isIntersecting; sync(); }).observe(hero);
+    document.addEventListener("visibilitychange", sync);
 
     hero.addEventListener("mousemove", (e) => {
       const rect = hero.getBoundingClientRect();
@@ -449,26 +547,24 @@ const CONFIG = {
   function initPointerEffects() {
     if (!isFinePointer || prefersReducedMotion) return;
 
-    // Custom cursor
+    // Custom cursor (shown after the first mouse move)
     const cursor = $("#cursor"), dot = $("#cursorDot");
     let cx = 0, cy = 0, tx = 0, ty = 0;
     window.addEventListener("mousemove", (e) => {
       if (!document.body.classList.contains("has-cursor")) { cx = e.clientX; cy = e.clientY; document.body.classList.add("has-cursor"); }
       tx = e.clientX; ty = e.clientY;
       dot.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
-    });
+    }, { passive: true });
     const loop = () => {
       cx += (tx - cx) * 0.18; cy += (ty - cy) * 0.18;
       cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
       requestAnimationFrame(loop);
     };
     loop();
-    $$("a, button, .work, .filter, input, select, textarea").forEach((el) => {
-      el.addEventListener("mouseenter", () => cursor.classList.add("is-hover"));
-      el.addEventListener("mouseleave", () => cursor.classList.remove("is-hover"));
-    });
+    // One delegated listener instead of one per element
+    const interactive = "a, button, input, select, textarea, label";
+    document.addEventListener("mouseover", (e) => cursor.classList.toggle("is-hover", !!e.target.closest(interactive)));
     document.addEventListener("mouseleave", () => document.body.classList.remove("has-cursor"));
-    document.addEventListener("mouseenter", () => document.body.classList.add("has-cursor"));
 
     // Magnetic buttons
     $$(".magnetic").forEach((btn) => {
@@ -481,21 +577,20 @@ const CONFIG = {
       btn.addEventListener("mouseleave", () => (btn.style.transform = ""));
     });
 
-    // 3D tilt + spotlight position on cards
+    // 3D tilt + spotlight position on service cards
     $$(".tilt").forEach((card) => {
       card.addEventListener("mousemove", (e) => {
         const r = card.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width;
         const py = (e.clientY - r.top) / r.height;
-        const max = card.classList.contains("visual-stack") ? 10 : 6;
-        card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * max}deg) rotateY(${(px - 0.5) * max}deg) translateY(-4px)`;
+        card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * 6}deg) rotateY(${(px - 0.5) * 6}deg) translateY(-4px)`;
         card.style.setProperty("--mx", `${px * 100}%`);
         card.style.setProperty("--my", `${py * 100}%`);
       });
       card.addEventListener("mouseleave", () => (card.style.transform = ""));
     });
 
-    // The hero visual tilts with the whole hero area
+    // The hero visual tilts with the mouse across the hero
     const stack = $(".visual-stack");
     $(".hero").addEventListener("mousemove", (e) => {
       const px = e.clientX / window.innerWidth - 0.5;
@@ -509,13 +604,14 @@ const CONFIG = {
     const timeline = $("#timeline");
     const fill = $("#timelineFill");
     if (!timeline || !fill) return;
+    let ticking = false;
     const update = () => {
       const r = timeline.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const progress = Math.min(Math.max((vh * 0.6 - r.top) / r.height, 0), 1);
+      const progress = Math.min(Math.max((window.innerHeight * 0.6 - r.top) / r.height, 0), 1);
       fill.style.height = `${progress * 100}%`;
+      ticking = false;
     };
-    window.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+    window.addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
     update();
   }
 
@@ -531,6 +627,7 @@ const CONFIG = {
   initSkills();
   initFilter();
   initLightbox();
+  initCopyEmail();
   initForm();
   initCanvas();
   initPointerEffects();
