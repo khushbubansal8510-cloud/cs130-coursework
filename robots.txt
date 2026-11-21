@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://khushbubansal8510-cloud.github.io/cs130-coursework/sitemap.xml
