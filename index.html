@@ -9,7 +9,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prakash Bansal — Graphic Designer, Video Editor &amp; Motion Graphics Artist</title>
-  <meta name="description" content="Prakash Bansal is a Graphic Designer, Video Editor and Motion Graphics Artist with 5+ years of experience in branding, visual storytelling, motion design, 360° and VR video editing." />
+  <meta name="description" content="Prakash Bansal is a Graphic Designer, Video Editor and Motion Graphics Artist with 5+ years of experience, specialising in branding, visual storytelling, 360° video editing and VR content creation." />
   <meta name="keywords" content="Prakash Bansal, graphic designer, video editor, motion graphics artist, branding, brand identity, 360 video editing, VR content, thumbnail design, social media creatives, portfolio" />
   <meta name="author" content="Prakash Bansal" />
   <meta name="theme-color" content="#0a0a0c" />
@@ -21,7 +21,7 @@
   <meta property="og:title" content="Prakash Bansal — Creative Portfolio" />
   <meta property="og:description" content="Turning creative ideas into visual experiences. Graphic design, video editing, motion graphics and VR / 360° content." />
   <meta property="og:url" content="https://khushbubansal8510-cloud.github.io/cs130-coursework/" />
-  <meta property="og:image" content="assets/img/og-image.svg" />
+  <meta property="og:image" content="https://khushbubansal8510-cloud.github.io/cs130-coursework/assets/img/og-image.svg" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
@@ -29,7 +29,7 @@
   <!-- Fonts: Syne (display) + Manrope (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/style.css" />
 
@@ -81,7 +81,7 @@
 
       <a href="#contact" class="btn btn--primary btn--sm nav__cta magnetic">Hire Me</a>
 
-      <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <button type="button" class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span>
       </button>
     </nav>
@@ -90,7 +90,7 @@
   <main id="main">
 
     <!-- ===================== 1. HERO ===================== -->
-    <section class="hero" id="home">
+    <section class="hero" id="home" aria-label="Introduction">
       <!-- Animated background: canvas particles + glowing orbs + grid -->
       <div class="hero__bg" aria-hidden="true">
         <canvas id="heroCanvas"></canvas>
@@ -115,8 +115,9 @@
           </h1>
 
           <p class="hero__role reveal">
-            <span class="hero__role-label">I craft</span>
-            <span class="typed" id="typed" aria-live="polite">Graphic Design</span><span class="typed-caret">|</span>
+            <span class="hero__role-label" aria-hidden="true">I craft</span><span class="sr-only">I craft </span>
+            <span class="sr-only">graphic design, video editing, motion graphics, brand identities and 360° / VR content.</span>
+            <span class="typed" id="typed" aria-hidden="true">Graphic Design</span><span class="typed-caret" aria-hidden="true">|</span>
           </p>
 
           <p class="hero__intro reveal">
@@ -195,66 +196,80 @@
     </div>
 
     <!-- ===================== 2. ABOUT ===================== -->
-    <section class="section about" id="about">
+    <section class="section about" id="about" aria-labelledby="about-title">
       <div class="container about__grid">
         <div class="about__media reveal">
           <!-- Replace this placeholder with your photo:
-               <img src="assets/img/prakash.jpg" alt="Portrait of Prakash Bansal" loading="lazy" /> -->
+               <img src="assets/img/prakash.jpg" alt="Portrait of Prakash Bansal" width="800" height="1000" loading="lazy" /> -->
           <div class="portrait glass">
             <div class="portrait__inner">
-              <span class="portrait__initials">PB</span>
+              <span class="portrait__initials" aria-hidden="true">PB</span>
               <span class="portrait__hint">Your photo here</span>
             </div>
-            <div class="portrait__ring"></div>
+            <div class="portrait__ring" aria-hidden="true"></div>
           </div>
           <div class="about__badge glass">
             <strong>5+</strong>
             <span>Years crafting<br />visual stories</span>
           </div>
+          <div class="about__tag glass" aria-hidden="true">
+            <span class="pulse-dot"></span> Design · Edit · Animate
+          </div>
         </div>
 
         <div class="about__content">
           <p class="eyebrow reveal">About Me</p>
-          <h2 class="section-title reveal">A storyteller who thinks in <span class="text-gradient">frames, colour &amp; motion.</span></h2>
+          <h2 class="section-title reveal" id="about-title">A storyteller who thinks in <span class="text-gradient">frames, colour &amp; motion.</span></h2>
 
-          <p class="reveal">
-            I'm <strong>Prakash Bansal</strong>, a Graphic Designer, Video Editor and Motion Graphics Artist
-            with more than five years of professional experience. My journey began with a fascination for how a
-            single image or a perfectly timed cut can make people <em>feel</em> something — and that curiosity
-            has grown into a career built on visual storytelling.
+          <p class="about__lead reveal">
+            I'm <strong>Prakash Bansal</strong>, a Graphic Designer, Video Editor and Motion Graphics Artist with
+            <strong>5+ years</strong> of professional experience turning ideas into visuals that people remember.
           </p>
           <p class="reveal">
-            Over the years I've designed brand identities, edited videos for creators and businesses,
-            animated motion graphics that bring ideas to life, and produced immersive <strong>360° and VR</strong>
-            content. I combine strong design fundamentals with modern tools — from the Adobe Creative Suite to
-            AI-powered tools like Midjourney and Runway ML — to deliver work that is both beautiful and effective.
+            My work sits where design meets storytelling. I build <strong>brand identities</strong> that feel consistent
+            everywhere they appear, edit videos with the pacing and emotion that keep audiences watching, and create
+            motion graphics that make complex messages simple. I also specialise in <strong>360° video editing and VR content</strong>,
+            producing immersive experiences that put viewers right inside the story.
           </p>
           <p class="reveal">
-            Every project starts with understanding the story you want to tell. From there, I focus on
-            clarity, consistency and craft, so your audience doesn't just see your content — they remember it.
+            I work across the Adobe Creative Suite, CorelDRAW, Figma and Insta360 Studio, and use AI tools like
+            Midjourney and Runway ML to explore ideas faster. Every project gets the same care: clear communication,
+            attention to detail and delivery on time.
           </p>
 
-          <ul class="about__highlights reveal">
-            <li><span class="hl-icon">◆</span> Visual storytelling &amp; concept development</li>
-            <li><span class="hl-icon">◆</span> Brand-consistent design systems</li>
-            <li><span class="hl-icon">◆</span> Cinematic edits &amp; motion design</li>
-            <li><span class="hl-icon">◆</span> Immersive 360° &amp; VR production</li>
+          <ul class="specialties" aria-label="Specialisations">
+            <li class="specialty glass reveal">
+              <span class="specialty__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></span>
+              <div><h3>Branding</h3><p>Logos, identity systems &amp; guidelines</p></div>
+            </li>
+            <li class="specialty glass reveal">
+              <span class="specialty__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5z"/><path d="M4 19.5A2.5 2.5 0 006.5 22H20v-5"/></svg></span>
+              <div><h3>Visual Storytelling</h3><p>Narratives told through design &amp; edit</p></div>
+            </li>
+            <li class="specialty glass reveal">
+              <span class="specialty__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a15 15 0 010 20"/></svg></span>
+              <div><h3>360° Video Editing</h3><p>Stitching, reframing &amp; stabilising</p></div>
+            </li>
+            <li class="specialty glass reveal">
+              <span class="specialty__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a2 2 0 012-2h16a2 2 0 012 2v6a2 2 0 01-2 2h-4l-2-3h-4l-2 3H4a2 2 0 01-2-2z"/><circle cx="7.5" cy="12" r="1.5"/><circle cx="16.5" cy="12" r="1.5"/></svg></span>
+              <div><h3>VR Content Creation</h3><p>Immersive experiences for headsets &amp; web</p></div>
+            </li>
           </ul>
 
           <div class="about__actions reveal">
             <a href="#contact" class="btn btn--primary magnetic">Let's Work Together</a>
-            <a href="#portfolio" class="link-arrow">See my projects <span>→</span></a>
+            <a href="#portfolio" class="link-arrow">See my projects <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== 3. SERVICES ===================== -->
-    <section class="section services" id="services">
+    <section class="section services" id="services" aria-labelledby="services-title">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow reveal">My Services</p>
-          <h2 class="section-title reveal">Creative services that make <span class="text-gradient">brands stand out.</span></h2>
+          <h2 class="section-title reveal" id="services-title">Creative services that make <span class="text-gradient">brands stand out.</span></h2>
           <p class="section-sub reveal">From a single thumbnail to a complete brand and video campaign — design and motion built around your story.</p>
         </header>
 
@@ -319,327 +334,418 @@
             <ul class="tags"><li>360° Stitching</li><li>VR</li><li>Immersive</li></ul>
           </article>
         </div>
+
+        <!-- How I work -->
+        <div class="process">
+          <h3 class="process__title reveal">How I work</h3>
+          <ol class="process__steps">
+            <li class="step reveal"><span class="step__num">01</span><h4>Discover</h4><p>Understand your goals, audience and the story you want to tell.</p></li>
+            <li class="step reveal"><span class="step__num">02</span><h4>Concept</h4><p>Moodboards, scripts and style frames to agree on the direction.</p></li>
+            <li class="step reveal"><span class="step__num">03</span><h4>Create</h4><p>Design, edit and animate, with review rounds along the way.</p></li>
+            <li class="step reveal"><span class="step__num">04</span><h4>Deliver</h4><p>Final files exported and optimised for every platform you need.</p></li>
+          </ol>
+        </div>
       </div>
     </section>
 
     <!-- ===================== 4. SKILLS ===================== -->
-    <section class="section skills" id="skills">
+    <section class="section skills" id="skills" aria-labelledby="skills-title">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow reveal">My Skills</p>
-          <h2 class="section-title reveal">The toolkit behind <span class="text-gradient">every frame.</span></h2>
-          <p class="section-sub reveal">Industry-standard software for design, editing and motion, plus AI tools for faster, bolder ideas.</p>
+          <h2 class="section-title reveal" id="skills-title">The toolkit behind <span class="text-gradient">every frame.</span></h2>
+          <p class="section-sub reveal">Ten professional tools across design, video, motion and immersive media, plus the creative skills that tie them together.</p>
         </header>
 
-        <!-- Software skill cards.
-             The animated bar shows each tool is part of the active toolkit — no made-up percentages.
-             OPTIONAL: to display your own proficiency, add data-level="85" to a card
-             and the bar will fill to that value and show the number. -->
-        <div class="skills__grid">
-          <article class="skill-card glass reveal" style="--brand:#31a8ff">
-            <div class="skill-card__logo">Ps</div>
-            <div class="skill-card__body">
-              <h3>Adobe Photoshop</h3>
-              <p>Photo editing, compositing &amp; thumbnails</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Design</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#ff9a00">
-            <div class="skill-card__logo">Ai</div>
-            <div class="skill-card__body">
-              <h3>Adobe Illustrator</h3>
-              <p>Logos, vector art &amp; brand identity</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Design</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#9999ff">
-            <div class="skill-card__logo">Pr</div>
-            <div class="skill-card__body">
-              <h3>Adobe Premiere Pro</h3>
-              <p>Professional editing &amp; colour grading</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Video</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#d291ff">
-            <div class="skill-card__logo">Ae</div>
-            <div class="skill-card__body">
-              <h3>Adobe After Effects</h3>
-              <p>Motion graphics, VFX &amp; animation</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Motion</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#3fd17a">
-            <div class="skill-card__logo">Cd</div>
-            <div class="skill-card__body">
-              <h3>CorelDRAW</h3>
-              <p>Print layouts &amp; vector illustration</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Design</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#ff7262">
-            <div class="skill-card__logo">Fg</div>
-            <div class="skill-card__body">
-              <h3>Figma</h3>
-              <p>UI layouts, mockups &amp; collaboration</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Design</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#00d1c1">
-            <div class="skill-card__logo">Fi</div>
-            <div class="skill-card__body">
-              <h3>Filmora</h3>
-              <p>Fast-turnaround social video edits</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">Video</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#ffcc00">
-            <div class="skill-card__logo skill-card__logo--sm">360</div>
-            <div class="skill-card__body">
-              <h3>Insta360 Studio</h3>
-              <p>360° stitching, reframing &amp; VR</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">VR / 360°</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#e8e8ee">
-            <div class="skill-card__logo">Mj</div>
-            <div class="skill-card__body">
-              <h3>Midjourney</h3>
-              <p>AI concept art &amp; visual exploration</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">AI</span>
-            </div>
-          </article>
-
-          <article class="skill-card glass reveal" style="--brand:#2d8cff">
-            <div class="skill-card__logo">Rw</div>
-            <div class="skill-card__body">
-              <h3>Runway ML</h3>
-              <p>AI video generation &amp; effects</p>
-              <div class="skill-bar"><span></span></div>
-              <span class="skill-card__cat">AI</span>
-            </div>
-          </article>
+        <!-- Software toolkit, grouped by discipline.
+             The animated bar marks each tool as part of the active toolkit. No percentages are invented.
+             OPTIONAL: add data-level="85" to any <li class="tool"> to show your own proficiency value. -->
+        <div class="toolkit">
+          <section class="toolkit__group glass reveal" aria-label="Design tools">
+            <header class="toolkit__head">
+              <span class="toolkit__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><circle cx="11" cy="11" r="2"/></svg></span>
+              <div><h3>Design</h3><p>Branding, print &amp; digital graphics</p></div>
+              <span class="toolkit__count">4 tools</span>
+            </header>
+            <ul class="tool-list">
+              <li class="tool" style="--brand:#31a8ff">
+                <span class="tool__logo" aria-hidden="true">Ps</span>
+                <div class="tool__info"><h4>Adobe Photoshop</h4><p>Photo editing, compositing &amp; thumbnails</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#ff9a00">
+                <span class="tool__logo" aria-hidden="true">Ai</span>
+                <div class="tool__info"><h4>Adobe Illustrator</h4><p>Logos, vector art &amp; brand identity</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#3fd17a">
+                <span class="tool__logo" aria-hidden="true">Cd</span>
+                <div class="tool__info"><h4>CorelDRAW</h4><p>Print layouts &amp; vector illustration</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#ff7262">
+                <span class="tool__logo" aria-hidden="true">Fg</span>
+                <div class="tool__info"><h4>Figma</h4><p>Layouts, mockups &amp; collaboration</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+            </ul>
+          </section>
+          <section class="toolkit__group glass reveal" aria-label="Video and Motion tools">
+            <header class="toolkit__head">
+              <span class="toolkit__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3z"/></svg></span>
+              <div><h3>Video &amp; Motion</h3><p>Editing, colour, animation &amp; VFX</p></div>
+              <span class="toolkit__count">3 tools</span>
+            </header>
+            <ul class="tool-list">
+              <li class="tool" style="--brand:#9999ff">
+                <span class="tool__logo" aria-hidden="true">Pr</span>
+                <div class="tool__info"><h4>Adobe Premiere Pro</h4><p>Professional editing &amp; colour grading</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#d291ff">
+                <span class="tool__logo" aria-hidden="true">Ae</span>
+                <div class="tool__info"><h4>Adobe After Effects</h4><p>Motion graphics, VFX &amp; animation</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#00d1c1">
+                <span class="tool__logo" aria-hidden="true">Fi</span>
+                <div class="tool__info"><h4>Filmora</h4><p>Fast-turnaround social video edits</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+            </ul>
+          </section>
+          <section class="toolkit__group glass reveal" aria-label="Immersive and AI tools">
+            <header class="toolkit__head">
+              <span class="toolkit__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/><path d="M12 2a15 15 0 010 20"/></svg></span>
+              <div><h3>Immersive &amp; AI</h3><p>360° / VR production &amp; AI-assisted visuals</p></div>
+              <span class="toolkit__count">3 tools</span>
+            </header>
+            <ul class="tool-list">
+              <li class="tool" style="--brand:#ffcc00">
+                <span class="tool__logo tool__logo--sm" aria-hidden="true">360</span>
+                <div class="tool__info"><h4>Insta360 Studio</h4><p>360° stitching, reframing &amp; VR</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#e8e8ee">
+                <span class="tool__logo" aria-hidden="true">Mj</span>
+                <div class="tool__info"><h4>Midjourney</h4><p>AI concept art &amp; visual exploration</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+              <li class="tool" style="--brand:#2d8cff">
+                <span class="tool__logo" aria-hidden="true">Rw</span>
+                <div class="tool__info"><h4>Runway ML</h4><p>AI video generation &amp; effects</p><span class="tool__bar" aria-hidden="true"><span></span></span></div>
+              </li>
+            </ul>
+          </section>
         </div>
 
-        <!-- Creative skill chips -->
-        <div class="skills__chips reveal">
-          <h3 class="chips-title">Creative Expertise</h3>
-          <ul class="chips">
-            <li>Graphic Design</li><li>Video Editing</li><li>Motion Graphics</li>
-            <li>Branding &amp; Identity</li><li>Visual Storytelling</li><li>360° Video Editing</li>
-            <li>VR Content Creation</li><li>Social Media Creatives</li><li>Thumbnail Design</li>
+        <!-- Creative expertise -->
+        <div class="expertise">
+          <h3 class="expertise__title reveal">Creative Expertise</h3>
+          <ul class="expertise__grid">
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></span>Graphic Design</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="15" height="14" rx="2"/><path d="M17 10l5-3v10l-5-3z"/></svg></span>Video Editing</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg></span>Motion Graphics</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 7h7l-5.5 4.5 2 7.5L12 16.5 5.5 21l2-7.5L2 9h7z"/></svg></span>Branding &amp; Identity</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5z"/><path d="M4 19.5A2.5 2.5 0 006.5 22H20v-5"/></svg></span>Visual Storytelling</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/></svg></span>360° Video Editing</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9a2 2 0 012-2h16a2 2 0 012 2v6a2 2 0 01-2 2h-4l-2-3h-4l-2 3H4a2 2 0 01-2-2z"/></svg></span>VR Content Creation</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 7h6M9 11h6M9 15h3"/></svg></span>Social Media Creatives</li>
+            <li class="expertise__item reveal"><span class="expertise__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M10 8.5v5l4-2.5z"/><path d="M8 21h8"/></svg></span>Thumbnail Design</li>
           </ul>
         </div>
       </div>
     </section>
 
+
     <!-- ===================== 5. PORTFOLIO ===================== -->
-    <section class="section portfolio" id="portfolio">
+    <section class="section portfolio" id="portfolio" aria-labelledby="portfolio-title">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow reveal">My Portfolio</p>
-          <h2 class="section-title reveal">Selected work &amp; <span class="text-gradient">creative projects.</span></h2>
-          <p class="section-sub reveal">A curated look at design, video and motion work. Filter by category, or click a project to view it larger.</p>
+          <h2 class="section-title reveal" id="portfolio-title">Selected work &amp; <span class="text-gradient">creative projects.</span></h2>
+          <p class="section-sub reveal">Browse by category, or open any project to see it larger.</p>
         </header>
 
-        <div class="filters reveal" role="tablist" aria-label="Filter portfolio">
-          <button class="filter active" data-filter="all" role="tab" aria-selected="true">All</button>
-          <button class="filter" data-filter="graphic" role="tab" aria-selected="false">Graphic Design</button>
-          <button class="filter" data-filter="video" role="tab" aria-selected="false">Video Editing</button>
-          <button class="filter" data-filter="motion" role="tab" aria-selected="false">Motion Graphics</button>
-          <button class="filter" data-filter="branding" role="tab" aria-selected="false">Branding</button>
-          <button class="filter" data-filter="social" role="tab" aria-selected="false">Social Media</button>
+        <div class="filters reveal" role="group" aria-label="Filter projects by category">
+          <button type="button" class="filter active" data-filter="all" aria-pressed="true">All <span class="filter__count"></span></button>
+          <button type="button" class="filter" data-filter="graphic" aria-pressed="false">Graphic Design <span class="filter__count"></span></button>
+          <button type="button" class="filter" data-filter="video" aria-pressed="false">Video Editing <span class="filter__count"></span></button>
+          <button type="button" class="filter" data-filter="motion" aria-pressed="false">Motion Graphics <span class="filter__count"></span></button>
+          <button type="button" class="filter" data-filter="branding" aria-pressed="false">Branding <span class="filter__count"></span></button>
+          <button type="button" class="filter" data-filter="vr" aria-pressed="false">VR / 360° <span class="filter__count"></span></button>
+        </div>
+        <p class="sr-only" id="filterStatus" aria-live="polite"></p>
+
+        <!-- PROJECT CARDS
+             To show your real work, replace the image file (e.g. assets/work/graphic-01.svg)
+             with your own image and update the src, alt, title and description.
+             data-category must be one of: graphic | video | motion | branding | vr
+             For videos, add data-video="https://www.youtube.com/embed/VIDEO_ID" to the <article>
+             and the preview will play it. -->
+        <div class="project-grid" id="projectGrid">
+          <article class="project reveal" data-category="graphic">
+            <button type="button" class="project__media" aria-label="Open preview: Event Poster Series">
+              <img src="assets/work/graphic-01.svg" alt="Event Poster Series, Graphic Design project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Graphic Design</span>
+              <h3 class="project__title">Event Poster Series</h3>
+              <p class="project__desc">Bold typographic posters for a cultural event series, built around one striking visual system.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Photoshop</li><li>Illustrator</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="graphic">
+            <button type="button" class="project__media" aria-label="Open preview: Product Packaging">
+              <img src="assets/work/graphic-02.svg" alt="Product Packaging, Graphic Design project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Graphic Design</span>
+              <h3 class="project__title">Product Packaging</h3>
+              <p class="project__desc">Shelf-ready packaging with clear hierarchy and print-perfect dielines.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Illustrator</li><li>CorelDRAW</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="graphic">
+            <button type="button" class="project__media" aria-label="Open preview: Social Media and Thumbnails">
+              <img src="assets/work/graphic-03.svg" alt="Social Media and Thumbnails, Graphic Design project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Graphic Design</span>
+              <h3 class="project__title">Social Media &amp; Thumbnails</h3>
+              <p class="project__desc">Scroll-stopping posts, carousels and YouTube thumbnails designed for clicks.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Photoshop</li><li>Figma</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="video">
+            <button type="button" class="project__media" aria-label="Open preview: Brand Promo Film">
+              <img src="assets/work/video-01.svg" alt="Brand Promo Film, Video Editing project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Video Editing</span>
+              <h3 class="project__title">Brand Promo Film</h3>
+              <p class="project__desc">A punchy brand film with tight pacing, colour grading and sound design.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Premiere Pro</li><li>After Effects</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="video">
+            <button type="button" class="project__media" aria-label="Open preview: YouTube Long-form Edit">
+              <img src="assets/work/video-02.svg" alt="YouTube Long-form Edit, Video Editing project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Video Editing</span>
+              <h3 class="project__title">YouTube Long-form Edit</h3>
+              <p class="project__desc">Story-led edits with b-roll, captions and graphics that keep viewers watching.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Premiere Pro</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="video">
+            <button type="button" class="project__media" aria-label="Open preview: Reels and Shorts Collection">
+              <img src="assets/work/video-03.svg" alt="Reels and Shorts Collection, Video Editing project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Video Editing</span>
+              <h3 class="project__title">Reels &amp; Shorts Collection</h3>
+              <p class="project__desc">Vertical short-form edits optimised for Instagram Reels and YouTube Shorts.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Premiere Pro</li><li>Filmora</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="motion">
+            <button type="button" class="project__media" aria-label="Open preview: Animated Logo Reveal">
+              <img src="assets/work/motion-01.svg" alt="Animated Logo Reveal, Motion Graphics project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Motion Graphics</span>
+              <h3 class="project__title">Animated Logo Reveal</h3>
+              <p class="project__desc">A dynamic logo animation for intros, outros and social media.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>After Effects</li><li>Illustrator</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="motion">
+            <button type="button" class="project__media" aria-label="Open preview: Kinetic Typography">
+              <img src="assets/work/motion-02.svg" alt="Kinetic Typography, Motion Graphics project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Motion Graphics</span>
+              <h3 class="project__title">Kinetic Typography</h3>
+              <p class="project__desc">Words in motion, synced to voice-over and music for maximum impact.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>After Effects</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="motion">
+            <button type="button" class="project__media" aria-label="Open preview: Explainer Animation">
+              <img src="assets/work/motion-03.svg" alt="Explainer Animation, Motion Graphics project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Motion Graphics</span>
+              <h3 class="project__title">Explainer Animation</h3>
+              <p class="project__desc">A clear, friendly explainer that turns a complex idea into a simple story.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>After Effects</li><li>Runway ML</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="branding">
+            <button type="button" class="project__media" aria-label="Open preview: Complete Brand Identity">
+              <img src="assets/work/branding-01.svg" alt="Complete Brand Identity, Branding project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Branding</span>
+              <h3 class="project__title">Complete Brand Identity</h3>
+              <p class="project__desc">Logo, colour palette, typography and brand applications for a growing business.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Illustrator</li><li>Photoshop</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="branding">
+            <button type="button" class="project__media" aria-label="Open preview: Logo and Stationery System">
+              <img src="assets/work/branding-02.svg" alt="Logo and Stationery System, Branding project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Branding</span>
+              <h3 class="project__title">Logo &amp; Stationery System</h3>
+              <p class="project__desc">A versatile logo suite with business cards, letterheads and templates.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Illustrator</li><li>CorelDRAW</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="branding">
+            <button type="button" class="project__media" aria-label="Open preview: Brand Guidelines Book">
+              <img src="assets/work/branding-03.svg" alt="Brand Guidelines Book, Branding project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">Branding</span>
+              <h3 class="project__title">Brand Guidelines Book</h3>
+              <p class="project__desc">A practical guide that keeps every touchpoint consistent and on-brand.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Figma</li><li>Illustrator</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="vr">
+            <button type="button" class="project__media" aria-label="Open preview: Immersive 360° Experience">
+              <img src="assets/work/vr-01.svg" alt="Immersive 360° Experience, VR / 360° project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play project__play--360" aria-hidden="true">360°</span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">VR / 360°</span>
+              <h3 class="project__title">Immersive 360° Experience</h3>
+              <p class="project__desc">A 360° film that places viewers at the centre of the action.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Insta360 Studio</li><li>Premiere Pro</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="vr">
+            <button type="button" class="project__media" aria-label="Open preview: Virtual Property Tour">
+              <img src="assets/work/vr-02.svg" alt="Virtual Property Tour, VR / 360° project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play project__play--360" aria-hidden="true">360°</span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">VR / 360°</span>
+              <h3 class="project__title">Virtual Property Tour</h3>
+              <p class="project__desc">A smooth, stabilised 360° walkthrough viewable on web and VR headsets.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Insta360 Studio</li></ul>
+            </div>
+          </article>
+          <article class="project reveal" data-category="vr">
+            <button type="button" class="project__media" aria-label="Open preview: VR Event Coverage">
+              <img src="assets/work/vr-03.svg" alt="VR Event Coverage, VR / 360° project placeholder" width="1200" height="900" loading="lazy" decoding="async" />
+              <span class="project__play project__play--360" aria-hidden="true">360°</span>
+              <span class="project__zoom" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></span>
+            </button>
+            <div class="project__body">
+              <span class="project__cat">VR / 360°</span>
+              <h3 class="project__title">VR Event Coverage</h3>
+              <p class="project__desc">Event highlights captured in 360° and edited for an immersive recap.</p>
+              <ul class="project__tools" aria-label="Tools used"><li>Insta360 Studio</li><li>Premiere Pro</li></ul>
+            </div>
+          </article>
         </div>
 
-        <!-- PORTFOLIO ITEMS
-             To add your real work, replace the <div class="work__placeholder ..."> inside each item with:
-               <img src="assets/work/your-image.jpg" alt="Project description" loading="lazy" />
-             Keep data-category as one of: graphic | video | motion | branding | social
-             For videos, set data-video="https://www.youtube.com/embed/VIDEO_ID" on the .work item
-             and the lightbox will play it. -->
-        <div class="work-grid" id="workGrid">
-          <article class="work reveal work--tall" data-category="graphic" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-1"><span class="ph-icon">◐</span><span class="ph-label">Poster Design</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Graphic Design</span>
-              <h3>Event Poster Series</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="video" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-2"><span class="ph-icon">▶</span><span class="ph-label">Video Edit</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Video Editing</span>
-              <h3>Brand Promo Film</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="motion" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-3"><span class="ph-icon">✺</span><span class="ph-label">Motion Graphics</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Motion Graphics</span>
-              <h3>Animated Logo Reveal</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal work--wide" data-category="branding" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-4"><span class="ph-icon">◆</span><span class="ph-label">Brand Identity</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Branding</span>
-              <h3>Complete Brand Identity</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="social" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-5"><span class="ph-icon">❖</span><span class="ph-label">Social Creative</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Social Media</span>
-              <h3>Instagram Campaign</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal work--tall" data-category="video" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-6"><span class="ph-icon">360°</span><span class="ph-label">360° / VR Video</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Video Editing</span>
-              <h3>Immersive 360° Experience</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="social" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-7"><span class="ph-icon">▣</span><span class="ph-label">Thumbnail</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Social Media</span>
-              <h3>YouTube Thumbnail Pack</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="graphic" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-8"><span class="ph-icon">✎</span><span class="ph-label">Print &amp; Packaging</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Graphic Design</span>
-              <h3>Product Packaging</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="motion" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-9"><span class="ph-icon">Aa</span><span class="ph-label">Kinetic Type</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Motion Graphics</span>
-              <h3>Kinetic Typography</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
-
-          <article class="work reveal" data-category="branding" tabindex="0">
-            <div class="work__media">
-              <div class="work__placeholder ph-10"><span class="ph-icon">◎</span><span class="ph-label">Logo Design</span></div>
-            </div>
-            <div class="work__info">
-              <span class="work__cat">Branding</span>
-              <h3>Logo &amp; Stationery</h3>
-              <span class="work__view" aria-hidden="true">↗</span>
-            </div>
-          </article>
+        <div class="portfolio__more reveal">
+          <p>Want to see more, or something specific to your industry?</p>
+          <a href="#contact" class="btn btn--ghost magnetic">Request Full Portfolio</a>
         </div>
       </div>
     </section>
 
+
     <!-- ===================== 6. EXPERIENCE ===================== -->
-    <section class="section experience" id="experience">
+    <section class="section experience" id="experience" aria-labelledby="experience-title">
       <div class="container">
         <header class="section-head">
           <p class="eyebrow reveal">My Experience</p>
-          <h2 class="section-title reveal">5+ years of <span class="text-gradient">creative growth.</span></h2>
+          <h2 class="section-title reveal" id="experience-title">5+ years of <span class="text-gradient">creative growth.</span></h2>
           <p class="section-sub reveal">A journey from design fundamentals to cinematic editing, motion design and immersive media.</p>
         </header>
 
-        <!-- TIMELINE — edit years, titles and descriptions to match your real roles/clients -->
+        <ul class="exp-summary">
+          <li class="exp-stat glass reveal"><strong>5+</strong><span>Years of professional<br />creative work</span></li>
+          <li class="exp-stat glass reveal"><strong>4</strong><span>Disciplines: design, video,<br />motion &amp; immersive</span></li>
+          <li class="exp-stat glass reveal"><strong>10</strong><span>Industry tools used<br />in daily production</span></li>
+        </ul>
+
+        <!-- TIMELINE: edit years, titles, organisations and points to match your real roles and clients -->
         <div class="timeline" id="timeline">
-          <div class="timeline__line"><span id="timelineFill"></span></div>
+          <div class="timeline__line" aria-hidden="true"><span id="timelineFill"></span></div>
 
           <article class="t-item reveal">
-            <div class="t-item__dot"></div>
+            <div class="t-item__dot" aria-hidden="true"></div>
             <div class="t-item__card glass">
-              <span class="t-item__year">2024 — Present</span>
+              <span class="t-item__year">2024 – Present</span>
               <h3>Senior Creative · VR, 360° &amp; AI Workflows</h3>
               <p class="t-item__org">Freelance &amp; Studio Projects</p>
-              <p>Leading end-to-end creative projects — from concept to final delivery — including immersive 360° / VR content and AI-assisted visuals with Midjourney and Runway ML.</p>
+              <ul class="t-item__points">
+                <li>Lead projects end to end, from concept and scripting to final delivery.</li>
+                <li>Edit and stitch immersive 360° / VR content in Insta360 Studio and Premiere Pro.</li>
+                <li>Use Midjourney and Runway ML to speed up concepting and visual exploration.</li>
+              </ul>
               <ul class="tags"><li>360° / VR</li><li>AI Tools</li><li>Creative Direction</li></ul>
             </div>
           </article>
 
           <article class="t-item reveal">
-            <div class="t-item__dot"></div>
+            <div class="t-item__dot" aria-hidden="true"></div>
             <div class="t-item__card glass">
-              <span class="t-item__year">2022 — 2024</span>
-              <h3>Motion Graphics &amp; Branding</h3>
+              <span class="t-item__year">2022 – 2024</span>
+              <h3>Motion Graphics &amp; Brand Designer</h3>
               <p class="t-item__org">Brands, Businesses &amp; Agencies</p>
-              <p>Built brand identities and motion systems — logo animations, explainers and campaign visuals — keeping every touchpoint consistent and on-brand.</p>
+              <ul class="t-item__points">
+                <li>Designed brand identities: logos, colour systems, typography and guidelines.</li>
+                <li>Created logo animations, explainers and campaign motion graphics in After Effects.</li>
+                <li>Kept every touchpoint, from print to social, consistent and on-brand.</li>
+              </ul>
               <ul class="tags"><li>After Effects</li><li>Brand Identity</li><li>Campaigns</li></ul>
             </div>
           </article>
 
           <article class="t-item reveal">
-            <div class="t-item__dot"></div>
+            <div class="t-item__dot" aria-hidden="true"></div>
             <div class="t-item__card glass">
-              <span class="t-item__year">2021 — 2022</span>
-              <h3>Video Editor &amp; Content Creator</h3>
+              <span class="t-item__year">2021 – 2022</span>
+              <h3>Video Editor &amp; Content Designer</h3>
               <p class="t-item__org">YouTubers, Creators &amp; Social Media</p>
-              <p>Edited long-form and short-form content, designed thumbnails and social creatives, and learned how pacing and storytelling drive audience retention.</p>
+              <ul class="t-item__points">
+                <li>Edited long-form videos, Reels and Shorts with a focus on pacing and retention.</li>
+                <li>Designed thumbnails and social creatives built to earn the click.</li>
+                <li>Handled colour correction, captions, sound clean-up and exports for each platform.</li>
+              </ul>
               <ul class="tags"><li>Premiere Pro</li><li>Thumbnails</li><li>Reels</li></ul>
             </div>
           </article>
 
           <article class="t-item reveal">
-            <div class="t-item__dot"></div>
+            <div class="t-item__dot" aria-hidden="true"></div>
             <div class="t-item__card glass">
-              <span class="t-item__year">2020 — 2021</span>
+              <span class="t-item__year">2020 – 2021</span>
               <h3>Graphic Designer</h3>
               <p class="t-item__org">Where It All Started</p>
-              <p>Mastered design fundamentals — typography, layout and colour — creating posters, print materials and digital graphics with Photoshop, Illustrator and CorelDRAW.</p>
+              <ul class="t-item__points">
+                <li>Built strong fundamentals in typography, layout and colour theory.</li>
+                <li>Created posters, flyers, print materials and digital graphics.</li>
+                <li>Mastered Photoshop, Illustrator and CorelDRAW for print and screen.</li>
+              </ul>
               <ul class="tags"><li>Photoshop</li><li>Illustrator</li><li>CorelDRAW</li></ul>
             </div>
           </article>
@@ -648,7 +754,7 @@
     </section>
 
     <!-- ===================== CTA BAND ===================== -->
-    <section class="cta-band">
+    <section class="cta-band" aria-label="Start a project">
       <div class="container cta-band__inner glass reveal">
         <h2>Have a project in mind? <span class="text-gradient">Let's make it unforgettable.</span></h2>
         <a href="#contact" class="btn btn--primary magnetic">Start a Project</a>
@@ -656,60 +762,80 @@
     </section>
 
     <!-- ===================== 7. CONTACT ===================== -->
-    <section class="section contact" id="contact">
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
       <div class="container contact__grid">
         <div class="contact__info">
           <p class="eyebrow reveal">Contact Me</p>
-          <h2 class="section-title reveal">Let's create something <span class="text-gradient">amazing together.</span></h2>
-          <p class="reveal">Tell me about your project, timeline and goals. I usually reply within 24 hours.</p>
+          <h2 class="section-title reveal" id="contact-title">Let's create something <span class="text-gradient">amazing together.</span></h2>
+          <p class="reveal">Tell me about your project, timeline and goals. The quickest way to reach me is WhatsApp. I usually reply within 24 hours.</p>
 
-          <!-- Contact links are filled from the CONFIG object at the top of js/main.js -->
+          <!-- Quick actions. Links are filled from the CONFIG object at the top of js/main.js -->
+          <div class="contact__quick reveal">
+            <a href="https://wa.me/910000000000" target="_blank" rel="noopener" class="btn btn--wa magnetic" data-link="whatsapp">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" stroke="none" d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7z"/></svg>
+              Chat on WhatsApp
+            </a>
+            <a href="mailto:hello@prakashbansal.com" class="btn btn--ghost magnetic" data-link="email">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+              Send an Email
+            </a>
+          </div>
+
           <ul class="contact__list">
             <li class="reveal">
-              <a href="mailto:hello@prakashbansal.com" class="contact-link glass" data-link="email">
+              <div class="contact-link glass">
                 <span class="contact-link__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></span>
-                <span><small>Email</small><b data-text="email">hello@prakashbansal.com</b></span>
-              </a>
+                <a href="mailto:hello@prakashbansal.com" class="contact-link__main" data-link="email"><small>Email</small><b data-text="email">hello@prakashbansal.com</b></a>
+                <button type="button" class="copy-btn" id="copyEmail" aria-label="Copy email address">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+                  <span class="copy-btn__label">Copy</span>
+                </button>
+              </div>
             </li>
             <li class="reveal">
               <a href="https://wa.me/910000000000" target="_blank" rel="noopener" class="contact-link glass" data-link="whatsapp">
                 <span class="contact-link__icon contact-link__icon--wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></span>
-                <span><small>WhatsApp</small><b>Chat with me instantly</b></span>
+                <span class="contact-link__main"><small>WhatsApp</small><b data-text="whatsapp">+91 00000 00000</b></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
               </a>
             </li>
             <li class="reveal">
               <a href="https://instagram.com/your-username" target="_blank" rel="noopener" class="contact-link glass" data-link="instagram">
                 <span class="contact-link__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></span>
-                <span><small>Instagram</small><b data-text="instagram">@your-username</b></span>
+                <span class="contact-link__main"><small>Instagram</small><b data-text="instagram">@your-username</b></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
               </a>
             </li>
             <li class="reveal">
               <a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener" class="contact-link glass" data-link="linkedin">
                 <span class="contact-link__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg></span>
-                <span><small>LinkedIn</small><b>Connect professionally</b></span>
+                <span class="contact-link__main"><small>LinkedIn</small><b>Connect professionally</b></span>
+                <span class="contact-link__arrow" aria-hidden="true">↗</span>
               </a>
             </li>
           </ul>
         </div>
 
-        <!-- Contact form: opens the visitor's email app by default.
-             To receive messages directly, set CONFIG.formEndpoint in js/main.js (e.g. a Formspree URL). -->
-        <form class="contact-form glass reveal" id="contactForm" novalidate>
-          <h3>Send a message</h3>
+        <!-- Contact form. Both buttons work with no server:
+             "Send via WhatsApp" opens WhatsApp with the message pre-filled,
+             "Send via Email" opens the visitor's email app (or posts to CONFIG.formEndpoint if you set one). -->
+        <form class="contact-form glass reveal" id="contactForm" novalidate aria-labelledby="form-title">
+          <h3 id="form-title">Send a message</h3>
+          <p class="contact-form__sub">Fill in the details, then choose how to send. All fields are required.</p>
           <div class="form-row">
             <div class="field">
-              <input type="text" id="name" name="name" placeholder=" " required autocomplete="name" />
+              <input type="text" id="name" name="name" placeholder=" " required autocomplete="name" aria-describedby="name-error" />
               <label for="name">Your name</label>
-              <span class="field__error"></span>
+              <span class="field__error" id="name-error"></span>
             </div>
             <div class="field">
-              <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" />
+              <input type="email" id="email" name="email" placeholder=" " required autocomplete="email" aria-describedby="email-error" />
               <label for="email">Email address</label>
-              <span class="field__error"></span>
+              <span class="field__error" id="email-error"></span>
             </div>
           </div>
           <div class="field">
-            <select id="service" name="service" required>
+            <select id="service" name="service" required aria-describedby="service-error">
               <option value="" selected disabled hidden></option>
               <option>Graphic Design</option>
               <option>Professional Video Editing</option>
@@ -720,17 +846,23 @@
               <option>Other</option>
             </select>
             <label for="service">Service you need</label>
-            <span class="field__error"></span>
+            <span class="field__error" id="service-error"></span>
           </div>
           <div class="field">
-            <textarea id="message" name="message" rows="5" placeholder=" " required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder=" " required aria-describedby="message-error"></textarea>
             <label for="message">Tell me about your project</label>
-            <span class="field__error"></span>
+            <span class="field__error" id="message-error"></span>
           </div>
-          <button type="submit" class="btn btn--primary btn--block magnetic">
-            <span class="btn__label">Send Message</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
-          </button>
+          <div class="form-actions">
+            <button type="submit" class="btn btn--wa" name="via" value="whatsapp">
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" stroke="none" d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7z"/></svg>
+              <span class="btn__label">Send via WhatsApp</span>
+            </button>
+            <button type="submit" class="btn btn--primary" name="via" value="email">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>
+              <span class="btn__label">Send via Email</span>
+            </button>
+          </div>
           <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -740,17 +872,26 @@
   <!-- ===================== FOOTER ===================== -->
   <footer class="footer">
     <div class="container footer__inner">
-      <a href="#home" class="logo"><span class="logo__mark">PB</span><span class="logo__text">Prakash<em>.</em></span></a>
+      <a href="#home" class="logo" aria-label="Prakash Bansal, back to top"><span class="logo__mark" aria-hidden="true">PB</span><span class="logo__text">Prakash<em>.</em></span></a>
       <p class="footer__tag">Graphic Designer · Video Editor · Motion Graphics Artist</p>
-      <ul class="footer__nav">
-        <li><a href="#about">About</a></li><li><a href="#services">Services</a></li>
-        <li><a href="#portfolio">Portfolio</a></li><li><a href="#contact">Contact</a></li>
+      <nav aria-label="Footer">
+        <ul class="footer__nav">
+          <li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#skills">Skills</a></li>
+          <li><a href="#portfolio">Portfolio</a></li><li><a href="#experience">Experience</a></li><li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <ul class="footer__social">
+        <li><a href="mailto:hello@prakashbansal.com" data-link="email" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></a></li>
+        <li><a href="https://wa.me/910000000000" target="_blank" rel="noopener" data-link="whatsapp" aria-label="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></a></li>
+        <li><a href="https://instagram.com/your-username" target="_blank" rel="noopener" data-link="instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener" data-link="linkedin" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-4 0v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 2a2 2 0 110 4 2 2 0 010-4z"/></svg></a></li>
       </ul>
       <p class="footer__copy">© <span id="year">2026</span> Prakash Bansal. All rights reserved.</p>
     </div>
   </footer>
 
-  <!-- Floating WhatsApp button -->
+  <!-- Floating quick actions -->
+  <aside aria-label="Quick actions">
   <a href="https://wa.me/910000000000" target="_blank" rel="noopener" class="wa-float" data-link="whatsapp" aria-label="Chat on WhatsApp">
     <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3a13 13 0 00-11.2 19.6L3 29l6.6-1.7A13 13 0 1016 3zm0 23.7a10.7 10.7 0 01-5.5-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.7 10.7 0 1116 26.7zm5.9-8c-.3-.2-1.9-1-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.8 8.8 0 01-2.6-1.6 9.7 9.7 0 01-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6.3-.5a.6.6 0 000-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 00-.9.4 3.6 3.6 0 00-1.1 2.7 6.3 6.3 0 001.3 3.3 14.3 14.3 0 005.5 4.9c2 .9 2.8.9 3.8.8a3.2 3.2 0 002.1-1.5 2.6 2.6 0 00.2-1.5c-.1-.1-.3-.2-.6-.3z"/></svg>
   </a>
@@ -759,19 +900,23 @@
   <a href="#home" class="to-top" id="toTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
   </a>
+  </aside>
 
   <!-- Portfolio lightbox -->
-  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Project preview" hidden>
-    <button class="lightbox__close" id="lightboxClose" aria-label="Close preview">✕</button>
-    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous project">‹</button>
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" hidden>
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close preview">✕</button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous project">‹</button>
     <div class="lightbox__content glass">
       <div class="lightbox__media" id="lightboxMedia"></div>
       <div class="lightbox__caption">
         <span id="lightboxCat"></span>
         <h3 id="lightboxTitle"></h3>
+        <p id="lightboxDesc"></p>
+        <ul class="project__tools" id="lightboxTools"></ul>
+        <span class="lightbox__counter" id="lightboxCounter"></span>
       </div>
     </div>
-    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next project">›</button>
+    <button type="button" class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next project">›</button>
   </div>
 
   <script src="js/main.js" defer></script>
